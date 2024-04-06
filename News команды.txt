@@ -1,0 +1,63 @@
+u1=User.objects.create_user('Marina')
+u2=User.objects.create_user('Alex')
+Authors.objects.create(authorUser=u1)
+>>> Authors.objects.create(authorUser=u2)
+>>> Category.objects.create(name_category="Beauty")
+>>> Category.objects.create(name_category="IT")
+>>> Category.objects.create(name_category="Politica")
+>>> Category.objects.create(name_category="Nails")
+
+author1=Authors.objects.get(id=1)
+>>> author2=Authors.objects.get(id=2)
+
+Posts.objects.create(posts=author1, name_post='I`m sexy and I know it', text_post="I`m sexy and I know it, I`m sexy and I know it,I`m sexy andI know it"
+, content_type="AR")
+>>> Posts.objects.create(posts=author2, name_post='Самые стильные дизайны весны 2024 года', text_post="Розовый, голубой, фиолетовый, нюд", content_type="AR")
+Posts.objects.create(posts=author2, name_post='Мир на грани', text_post="Мир На Грани, Мир На Грани", content_type="NW")
+>>> Posts.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
+>>> Posts.objects.get(id=1).postCategory.add(Category.objects.get(id=2))
+>>> Posts.objects.get(id=2).postCategory.add(Category.objects.get(id=3))
+>>> Posts.objects.get(id=2).postCategory.add(Category.objects.get(id=4))
+
+Comment.objects.create(commentPost=Posts.objects.get(id=1), commentUser=Authors.objects.get(id=1).authorUser, text_comment='Cool!!!')
+>>>Comment.objects.create(commentPost=Posts.objects.get(id=2), commentUser=Authors.objects.get(id=2).authorUser, text_comment='I don`t like!!!')
+Comment.objects.create(commentPost=Posts.objects.get(id=3), commentUser=Authors.objects.get(id=1).authorUser, text_comment='Amazing!!!')
+Comment.objects.create(commentPost=Posts.objects.get(id=4), commentUser=Authors.objects.get(id=1).authorUser, text_comment='Wonderful!!!')
+
+>>> Comment.objects.get(id=1).like()
+>>> Comment.objects.get(id=2).dislike()
+>>> Comment.objects.get(id=2).dislike()
+>>> Comment.objects.get(id=3).dislike()
+>>> Comment.objects.get(id=3).dislike()
+>>> Comment.objects.get(id=3).dislike()
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=4).like()
+>>> Comment.objects.get(id=2).rating
+>>> a=Authors.objects.get(id=1)
+a.update_evaluations()
+a.evaluationAuthor
+
+b=Authors.objects.get(id=2)
+b.update_evaluations()
+b.evaluationAuthor
+
+for I in a:
+i.evalutionAuthor
+i.authorUser
+
+posts=Posts.objects.order_by('-rating')
+posts.values('posts__authorUser__username').first()
+posts.values('posts__authorUser__username', 'rating', 'name_post').first()
+posts.first().preview()
+post_best=Posts.objects.order_by('-rating').first()
+post_best
+post_best.posts.authorUser.username
+post_best.rating
+post_best.name_post
+post_best.content_type
+post_best.preview()
+post_best.comment_set.all()
+post_best.comment_set.values('date_comment', 'commentPost', 'commentUser', 'text_comment', 'rating')
